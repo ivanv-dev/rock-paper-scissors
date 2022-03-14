@@ -5,9 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <div class="container">
+        <div class="info">
+            <p class="current-choice">
+                Choose weapon!
+            </p>
+            <p class="result">
+                Player: 0 - Computer - 0
+            </p>
+            <p class="current-round">
+                It is not even first round :(
+            </p>
+        </div>
+ 
+        <div class="mainframe">
+            <h1 class="message">
+
+            </h1>
+        </div>
+        <div class="top">
+            <button id="paper" class="choice">🧻</button>
+            <button id="rock" class="choice">🪨</button>
+            <button id="scissors" class="choice">✂️</button>
+        </div>
+        <div class="bot">
+            <div class="result">
+
+            </div>
+            <button id="play">Play</button>
+        </div>
+    </div>
 </body>
 </html>
