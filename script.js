@@ -9,6 +9,17 @@ let roundNumbers = 5;
 let computerPoints = 0;
 let playerPoints = 0;
 
+const buttons = document.querySelectorAll('.choice');
+const message = document.querySelector('.message');
+const playButton = document.querySelector('#play');
+const currentChoice = document.querySelector('.current-choice')
+const result = document.querySelector('.result');
+const currentRound = document.querySelector('.current-round');
+
+let playerPick;
+let isPicked = false;
+let roundCount = 0;
+
 function computerPlay(){
 const randomNumber = Math.random();
 
@@ -28,10 +39,11 @@ function lose(firstItem, secondItem){
 }
 
 function play(playerSelection){
+if(!playerSelection) return 'Wrong input.';
 const computerSelection = computerPlay();
 const playerSelectionLowercased = playerSelection.toLowerCase();
 
-if(playerSelectionLowercased === computerSelection) return 'It is draw!'
+if(playerSelectionLowercased === computerSelection) return 'Draw'
 else return getOutput(computerSelection, playerSelectionLowercased);
 
 }
@@ -58,21 +70,51 @@ else return 'Wrong input, insert rock, paper or scissors!';
 }
 
 function playRound(){
- const input = prompt('Choose rock, paper or scissors!')
- console.log(play(input));
+ const input = playerPick
+ const playOutput = play(input);
+ message.textContent = playOutput;
+ return playOutput;
 }
 
 function playGame(){
-    for(let i = 0; i < roundNumbers; i++){
-        playRound();
-        console.log(`ROUND: ${i + 1} --- Player points: ${playerPoints}, Computer points: ${computerPoints}`)
-    }
+ let textOutput;
 
-    if(playerPoints > computerPoints) console.log('Player wins!');
-    else if (playerPoints < computerPoints) console.log('Compter wins!');
-    else console.log('Draw.')
-    playerPoints = 0;
-    computerPoints = 0;
+   
+    
+
+    playButton.addEventListener('click', e => {
+        currentRound.textContent = `Current round is ${roundCount + 1}`;
+
+
+        textOutput = playRound();
+        result.textContent = `Player: ${playerPoints} - Computer: ${computerPoints}`;
+
+        if(textOutput !== 'Draw') roundCount++;
+
+        if(roundCount === roundNumbers) {
+            if(playerPoints > computerPoints) console.log('Player wins!');
+            else if (playerPoints < computerPoints) console.log('Compter wins!');
+            playerPoints = 0;
+            computerPoints = 0;
+            roundCount = 0;
+        }
+    })
 }
 
+function listForClickEvent(){
+    buttons.forEach(btn => {
+        console.log(btn)
+        btn.addEventListener('click', e => {
+            setChoice(e)
+        })
+    })
+}
+
+function setChoice(e){
+    console.log('ok')
+    playerPick = e.target.id;
+    currentChoice.textContent = playerPick;
+    isPicked = true;
+}
+listForClickEvent();
 playGame();
